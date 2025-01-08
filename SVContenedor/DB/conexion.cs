@@ -5,18 +5,18 @@ using Microsoft.Extensions.Configuration;
 
 namespace SVContenedor.DB
 {
-    public class conexion
+    public class Conexion
     {
         private IConfiguration _configuracion;
         private string _cadenaSql=null!;
 
-        public conexion(IConfiguration configuracion)
+        public Conexion(IConfiguration configuracion)
         {
             _configuracion = configuracion;
             _cadenaSql = _configuracion.GetConnectionString("CadenaSql")!;
         }
 
-      public SqlConnection Obtener()
+      public SqlConnection ObtenerSQLConexion()
         {
             return new SqlConnection(_cadenaSql);
         }

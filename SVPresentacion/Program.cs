@@ -1,5 +1,12 @@
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SVContenedor;
+using SVContenedor.Implementacion;
+using SVContenedor.Interfaces;
+using SVServicios;
+using SVServicios.Implementacion;
+using SVServicios.Interfaces;
 
 namespace SVPresentacion
 {
@@ -15,17 +22,26 @@ namespace SVPresentacion
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             var host=CreateHostBuilder().Build();
-            Application.Run(new Form1());
+            var formServicios = host.Services.GetRequiredService<Form1>();
+
+
+            Application.Run(formServicios);
         }
         /// <summary>
-        /// Enlaza el config con el archivo appsettings.json, para tomar los valore internos de este de forma timereal
+        /// Enlaza el config con el archivo appsettings.json, para tomar los valore internos 
+        /// de este de forma inyeccion de dependencias.
         /// </summary>
-        /// <returns>
-        /// IHostBuilder 
-        /// </returns>
+        
         static IHostBuilder CreateHostBuilder() => Host.CreateDefaultBuilder()
-            .ConfigureAppConfiguration((contextm,config) => {
+            .ConfigureAppConfiguration((context,config) => {
                 config.AddJsonFile("appsettings.json", optional:false,reloadOnChange:true);
+            })
+            .ConfigureServices((context,servicios) =>
+            {
+             servicios.RegistroContenedorDependencias();
+             servicios.RegistroServiciosDependencias();
+
+             servicios.AddTransient<Form1>();
             });
         
 
