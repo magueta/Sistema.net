@@ -33,10 +33,13 @@ namespace SVContenedor.Implementacion
        Id = Convert.ToInt32(dr["Id"]),
        Nombre = dr["Nombre"].ToString()!,
        Activo = Convert.ToInt32(dr["Activo"]),
-       RefMedida= new Medida
+       RefMedida = new Medida
        {
-         Id= Convert.ToInt32(dr["IdMedida"]),
-         Nombre= dr["NombreMedida"].ToString()!
+        Id = Convert.ToInt32(dr["IdMedida"]),
+        Nombre = dr["NombreMedida"].ToString()!,
+        Abreviatura = dr["Abreviatura"].ToString(),
+        Equivalente = dr["Equivalente"].ToString(),
+        Valor = Convert.ToInt32(dr["Valor"]),
        }
       });
      }

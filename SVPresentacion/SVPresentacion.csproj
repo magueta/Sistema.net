@@ -26,4 +26,8 @@
     <ProjectReference Include="..\SVServicios\SVServicios.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Formularios\" />
+  </ItemGroup>
+
 </Project>
