@@ -10,15 +10,15 @@ namespace SVContenedor.Implementacion
 {
  public class CategoriaContenedor : ICategoriaContenedor
  {
-  private readonly Conexion _conexion;
-  public CategoriaContenedor(Conexion conexion)
+  private readonly Conexion _conexcion;
+  public CategoriaContenedor(Conexion conexcion)
   {
-   _conexion = conexion;
+   _conexcion = conexcion;
   }
   public async Task<List<Categoria>> Listar(string buscar = "")
   {
    List<Categoria> lista = new List<Categoria>();
-   using (var con = _conexion.ObtenerSQLConexion())
+   using (var con = _conexcion.ObtenerSQLConexion())
    {
     con.Open();
     var cmd = new SqlCommand("sp_listaCategoria", con);
@@ -37,8 +37,8 @@ namespace SVContenedor.Implementacion
        {
         Id = Convert.ToInt32(dr["IdMedida"]),
         Nombre = dr["NombreMedida"].ToString()!,
-        Abreviatura = dr["Abreviatura"].ToString(),
-        Equivalente = dr["Equivalente"].ToString(),
+        Abreviatura = dr["Abreviatura"].ToString()!,
+        Equivalente = dr["Equivalente"].ToString()!,
         Valor = Convert.ToInt32(dr["Valor"]),
        }
       });
@@ -48,15 +48,15 @@ namespace SVContenedor.Implementacion
    return lista;
   }
 
-  public async Task<string> Crear(Categoria oCategoria)
+  public async Task<string> Crear(Categoria objeto)
   {
    string respuesta = "";
-   using (var con = _conexion.ObtenerSQLConexion())
+   using (var con = _conexcion.ObtenerSQLConexion())
    {
     con.Open();
-    var cmd = new SqlCommand("sp_editarCategoria", con);
-    cmd.Parameters.AddWithValue("@Nombre", oCategoria.Nombre);
-    cmd.Parameters.AddWithValue("@idMedida", oCategoria.RefMedida.Id);
+    var cmd = new SqlCommand("sp_crearCategoria", con);
+    cmd.Parameters.AddWithValue("@Nombre", objeto.Nombre);
+    cmd.Parameters.AddWithValue("@idMedida", objeto.RefMedida.Id);
     cmd.Parameters.Add("@MsjError", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
     cmd.CommandType = CommandType.StoredProcedure;
     try
@@ -72,17 +72,17 @@ namespace SVContenedor.Implementacion
    return respuesta!;
   }
 
-  public async Task<string> Editar(Categoria oCategoria)
+  public async Task<string> Editar(Categoria objeto)
   {
    string respuesta = "";
-   using (var con = _conexion.ObtenerSQLConexion())
+   using (var con = _conexcion.ObtenerSQLConexion())
    {
     con.Open();
-    var cmd = new SqlCommand("sp_crearCategoria", con);
-    cmd.Parameters.AddWithValue("@idCategoria", oCategoria.Id);
-    cmd.Parameters.AddWithValue("@Nombre", oCategoria.Nombre);
-    cmd.Parameters.AddWithValue("@idMedida", oCategoria.RefMedida.Id);
-    cmd.Parameters.AddWithValue("@Activo", oCategoria.Activo);
+    var cmd = new SqlCommand("sp_editarCategoria", con);
+    cmd.Parameters.AddWithValue("@idCategoria", objeto.Id);
+    cmd.Parameters.AddWithValue("@Nombre", objeto.Nombre);
+    cmd.Parameters.AddWithValue("@idMedida", objeto.RefMedida.Id);
+    cmd.Parameters.AddWithValue("@Activo", objeto.Activo);
     cmd.Parameters.Add("@MsjError", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
     cmd.CommandType = CommandType.StoredProcedure;
     try

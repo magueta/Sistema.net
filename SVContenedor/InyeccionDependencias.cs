@@ -13,6 +13,7 @@ namespace SVContenedor
    servicios.AddSingleton<Conexion>();
    servicios.AddTransient<IMedidaContenedor, MedidaContenedor>();
    servicios.AddTransient<ICategoriaContenedor, CategoriaContenedor>();
+   servicios.AddTransient<IProductoContenedor, ProductoContenedor>();
 
   }
 
