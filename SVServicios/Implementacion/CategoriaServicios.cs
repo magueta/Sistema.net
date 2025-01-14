@@ -20,14 +20,14 @@ namespace SVServicios.Implementacion
    return await _CategoriaContenedor.Listar(buscar);
   }
 
-  public async Task<string> Crear(Categoria oCategoria)
+  public async Task<string> Crear(Categoria objeto)
   {
-   return await _CategoriaContenedor.Crear(oCategoria);
+   return await _CategoriaContenedor.Crear(objeto);
   }
 
-  public async Task<string> Editar(Categoria oCategoria)
+  public async Task<string> Editar(Categoria objeto)
   {
-   return await _CategoriaContenedor.Editar(oCategoria);
+   return await _CategoriaContenedor.Editar(objeto);
 
   }
 

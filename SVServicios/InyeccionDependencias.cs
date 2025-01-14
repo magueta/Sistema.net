@@ -14,6 +14,7 @@ namespace SVServicios
   {
    servicios.AddTransient<IMedidaServicios, MedidaServicios>();
    servicios.AddTransient<ICategoriaServicios, CategoriaServicios>();
+   servicios.AddTransient<IProductoServicios, ProductoServicios>();
   }
 
  }
